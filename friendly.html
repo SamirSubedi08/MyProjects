@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Simple Todo List (Beginner Friendly)</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        ul { list-style-type: none; padding: 0; }
+        li { margin: 5px 0; display: flex; justify-content: space-between; align-items: center; }
+        button { cursor: pointer; }
+    </style>
+</head>
+<body>
+
+<h2>Simple Todo List (Beginner Friendly)</h2>
+
+<div>
+    <input type="text" id="todoInput" placeholder="Enter a new task">
+    <button onclick="addTask()">Add Task</button>
+</div>
+
+<ul id="todoList"></ul>
+
+<script>
+    // Array to store all the tasks
+    let todos = [];
+
+    // Function to add a task
+    function addTask() {
+        const inputField = document.getElementById('todoInput');
+        const task = inputField.value.trim();  // Trim removes extra spaces
+
+        if (task === "") {
+            alert("Please enter a task!");
+            return;
+        }
+
+        todos.push(task);  // Add task to array
+        inputField.value = "";  // Clear input field
+        renderTodos();  // Refresh the task list on screen
+    }
+
+    // Function to show all tasks
+    function renderTodos() {
+        const todoList = document.getElementById('todoList');
+        todoList.innerHTML = "";  // Clear current list on screen
+
+        // Loop through all tasks and add to the page
+        todos.forEach((task, index) => {
+            const li = document.createElement('li');
+            li.innerHTML = `
+                <span>${task}</span>
+                <button onclick="deleteTask(${index})">Delete</button>
+            `;
+            todoList.appendChild(li);
+        });
+    }
+
+    // Function to delete a task
+    function deleteTask(index) {
+        todos.splice(index, 1);  // Remove 1 task at the given index
+        renderTodos();  // Refresh the task list
+    }
+</script>
+
+</body>
+</html>

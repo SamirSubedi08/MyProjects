@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ToDo List</title>
+	<style>
+		body{
+			font-family: Arial, Helvetica, sans-serif;
+			background-color: aqua;
+			margin: 20px;
+			padding: 10px;
+		}
+			
+		ul{
+			list-style-type: none;
+			margin: 10px;
+
+		}
+		li{
+			color: blueviolet;
+			margin: 10px;
+
+		}
+		.box{
+			margin-left: 450px;
+			display: inline-block;
+			padding: 15px;
+			background-color: rgb(245, 238, 238);
+			border-radius: 20px;
+			align-items: center;
+			justify-content: center;
+		}
+		h1{
+			margin-left: 30px;
+			color:cornflowerblue;
+		}
+		.image{
+			justify-content: center;
+			align-items: center;
+			margin-left: 15px;
+			margin-bottom: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="box">
+		<h1 >TODO Lists</h1>
+		<div class="image">
+			<img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRk8Wq2Yd1ESvKm9iOwKDS6I9qm-VqQ3btK5Q&s" alt="img">
+		</div>
+		<div>
+	
+			<input type="text" name="TexedTask" id="todoinput" placeholder="Enter new Task">
+			<button onclick="addTask()"> Add Task</button>
+		</div>
+		<ul id="todolist"></ul>
+	</div>
+
+
+	<script>
+		let todos = [];
+		function addTask(){
+			const textTask = document.getElementById('todoinput');
+			const task = textTask.value.trim();
+			if ( task ===""){
+				alert("Please enter a task!");
+				return;
+			}
+			todos.push(task);
+			textTask.value = "";
+			showTodos();
+
+		}
+
+		function showTodos(){
+			const ulList = document.getElementById("todolist");
+			ulList.innerHTML = "";
+			todos.forEach((task,index) => {
+				const li = document.createElement('li');
+				li.innerHTML = ` 
+				<span>${task}</span>
+				<button onclick="deleteTask(${index})">Delete</button>
+
+				`;
+				todolist.appendChild(li);
+
+			}
+		);
+		}
+
+		function deleteTask(index){
+			todos.splice(index, 1);
+			showTodos();
+		}
+
+
+
+	</script>
+	 
+</body>
+</html>

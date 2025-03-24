@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <style>
+        body {
+            background-image: url('/resources/sa.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            margin: 0;
+            padding: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            box-sizing: border-box;
+        }
+
+        .box {
+            display: flex;
+            padding: 10px;
+            margin: 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 20px;
+        }
+
+        li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #f0f0f0;
+            padding: 5px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+
+        button {
+            width: 30px;
+            height: 30px;
+            background-color: #8df2cd;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 0;
+        }
+
+        #texttask {
+            border-radius: 10px;
+            margin-right: 5px;
+            padding: 4px;
+            border: 2px solid #f0f0f0;
+            font-size: medium;
+            color: rgb(67, 68, 68);
+        }
+
+        img {
+            position: relative;
+            top: 15px;
+            left: 10px;
+            width: 30px;
+        }
+
+        .box, h1 {
+            position: relative;
+            bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+    <img src="https://static.thenounproject.com/png/2856481-200.png" alt="darkmode/whitemode">
+    <h1>Todo List</h1>
+    
+    <div class="box">
+        <input type="text" id="texttask" placeholder="Enter task">
+        <button onclick="addTask()">+</button>
+    </div>
+    <ul id="tasklist"></ul>
+
+<script>
+    let tasks = [];
+
+    document.getElementById('texttask').addEventListener('keypress', function(e) {
+        if (e.key === "Enter") {
+            addTask();
+        }
+    });
+
+    function addTask() {
+        const texttask = document.getElementById('texttask');
+        const actualTask = texttask.value.trim();
+        
+        if (actualTask === "") {
+            alert("Please enter a task!");
+            return;
+        }
+
+        tasks.push(actualTask);
+        texttask.value = "";
+
+        showTask();
+    }
+
+    function showTask() {
+        const tasklist = document.getElementById("tasklist");
+        tasklist.innerHTML = ""; 
+
+        tasks.forEach((actualTask, index) => {
+            const li = document.createElement("li");
+            li.innerHTML = `<span>${actualTask}</span>
+                            <button onclick="deleteTask(${index})">-</button>`;
+            tasklist.appendChild(li);
+        });
+    }
+
+    function deleteTask(index) {
+        tasks.splice(index, 1);
+        showTask();
+    }
+</script>
+
+</body>
+</html>
